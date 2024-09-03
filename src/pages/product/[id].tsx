@@ -1,6 +1,7 @@
 import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next"
 import Image from "next/future/image";
+import Head from "next/head";
 import Stripe from "stripe";
 import { stripe } from "../../lib/stripe";
 import { useState } from "react";
@@ -37,6 +38,10 @@ import { ImageContainer, ProductContainer, ProductDetails } from "../../styles/p
       }
     }
   return (
+    <>
+    <Head>
+      <title>{product.name} | Ignite Shop</title>
+    </Head>
     <ProductContainer>
       <ImageContainer>
       <Image src={product.imageUrl} width={520} height={480} alt="" />
@@ -52,6 +57,7 @@ import { ImageContainer, ProductContainer, ProductDetails } from "../../styles/p
         </button>
       </ProductDetails>
     </ProductContainer>
+    </>
   )
 }
 
@@ -62,7 +68,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         params: { id: 'prod_Ql1Ja8l3OdydMj' }
       }
     ],
-    fallback: false,
+    fallback: 'blocking',
   }
 }
 
